@@ -1,11 +1,24 @@
-<div align="center">
+# Protocolo LibidFem - Funil VSL
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Este projeto é um funil de vendas "Mobile First" desenvolvido com React, TailwindCSS e TypeScript.
 
-  <h1>Built with AI Studio</h2>
+## Estrutura
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+O funil consiste em 5 etapas principais:
+1. **Landing Page**: Vídeo curto e CTA.
+2. **Quiz**: Perguntas de diagnóstico.
+3. **Análise**: Tela de carregamento (fake loader) para gerar antecipação.
+4. **Diagnóstico**: Resultado personalizado com copy agressiva.
+5. **Oferta (VSL)**: Vídeo de vendas com delay no botão de compra.
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Tecnologias
 
-</div>
+- React 19
+- TypeScript
+- Tailwind CSS (via CDN para leveza)
+- Lucide React (ícones)
+- Lite YouTube Embed (player de vídeo otimizado)
+
+## Deploy
+
+Este projeto está configurado para deploy via Vercel/Vite.
