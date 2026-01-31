@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ASSETS } from '../constants';
 import { ArrowRight, Lock } from 'lucide-react';
 
@@ -7,38 +7,6 @@ interface LandingPageProps {
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
-
-  useEffect(() => {
-    // Define the custom element for the video player
-    if (!customElements.get("lite-video-player")) {
-      customElements.define("lite-video-player", class extends HTMLElement {
-        connectedCallback() {
-          const t = this.getAttribute.bind(this);
-          const a = t("video-id") || "";
-          const r = t("base-url") || "";
-          const i = t("aspect-ratio") || "16:9";
-          const s = t("params") || "";
-          
-          let o = "16/9";
-          if (i === "square") o = "1/1";
-          else if (i.includes(":")) o = i.replace(":", "/");
-          else o = i;
-
-          const shadow = this.attachShadow({ mode: "open" });
-          shadow.innerHTML = `
-            <style>
-              :host { display: block; max-width: 1280px; margin: auto; }
-              .v { position: relative; width: 100%; aspect-ratio: ${o}; overflow: hidden; border-radius: 12px; background: #000; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
-              iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-            </style>
-            <div class="v">
-              <iframe src="${r}/embed/${a}?${s}" loading="lazy" allowfullscreen allow="autoplay"></iframe>
-            </div>
-          `;
-        }
-      });
-    }
-  }, []);
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-white">
@@ -61,14 +29,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
           (e como reativá-lo em <span className="font-bold text-gray-800">30 segundos</span> com uma fórmula personalizada).
         </p>
 
-        {/* Video Player */}
+        {/* Video Player - Iframe Atualizado */}
         <div className="w-full max-w-[350px] md:max-w-[400px] mb-8 shadow-2xl rounded-xl border-4 border-white">
-           {React.createElement('lite-video-player', {
-             'video-id': "1b32d1d8-2b84-4614-9a2d-0fff05325db6",
-             'aspect-ratio': "9:16",
-             'base-url': "https://app.litevideo.net",
-             'params': "aspectRatio=9%3A16&coverColor=%230f172a&progressSpeed=normal&progressBarHeight=8&showCover=true&coverStyle=gradient&playIconStyle=circle&playIconSize=huge&showTitle=true&showControls=false&showProgressBar=true&iconColor=%23ffffff&iconBackgroundColor=%23ff0000&iconBackgroundOpacity=100&progressBarColor=%23ff0000&controlsStyle=default&controlsPosition=bottom&controlsColor=%23ffffff&controlsBackground=gradient&hoverEffect=fade&autoPlay=true&loop=false&liveSimulatorEnabled=false&liveSimulatorViewersMin=10&liveSimulatorViewersMax=50&liveSimulatorGrowthRate=moderate&domainLockEnabled=false&domainLockDomains=&showComments=false"
-           })}
+           <iframe 
+             src="https://app.litevideo.net/embed/1b32d1d8-2b84-4614-9a2d-0fff05325db6?aspectRatio=9%3A16&coverColor=%230f172a&progressSpeed=normal&progressBarHeight=8&showCover=true&coverStyle=gradient&playIconStyle=circle&playIconSize=huge&showTitle=true&showControls=false&showProgressBar=true&iconColor=%23ffffff&iconBackgroundColor=%23ff0000&iconBackgroundOpacity=100&progressBarColor=%23ff0000&controlsStyle=default&controlsPosition=bottom&controlsColor=%23ffffff&controlsBackground=gradient&hoverEffect=fade&autoPlay=true&loop=false&liveSimulatorEnabled=false&liveSimulatorViewersMin=10&liveSimulatorViewersMax=50&liveSimulatorGrowthRate=moderate&domainLockEnabled=false&domainLockDomains=&showComments=false" 
+             style={{ width: '100%', aspectRatio: '9/16', border: '0', borderRadius: '12px' }}
+             allowFullScreen 
+             loading="lazy"
+             allow="autoplay"
+           ></iframe>
         </div>
 
         {/* Primary CTA Button - Botão de Alta Conversão */}

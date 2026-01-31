@@ -15,36 +15,6 @@ const SalesPage: React.FC<SalesPageProps> = ({ userData }) => {
   const [showOffer, setShowOffer] = useState(false);
 
   useEffect(() => {
-    // Re-define the custom element just in case to ensure it works on this page load
-    if (!customElements.get("lite-video-player")) {
-      customElements.define("lite-video-player", class extends HTMLElement {
-        connectedCallback() {
-          const t = this.getAttribute.bind(this);
-          const a = t("video-id") || "";
-          const r = t("base-url") || "";
-          const i = t("aspect-ratio") || "16:9";
-          const s = t("params") || "";
-          
-          let o = "16/9";
-          if (i === "square") o = "1/1";
-          else if (i.includes(":")) o = i.replace(":", "/");
-          else o = i;
-
-          const shadow = this.attachShadow({ mode: "open" });
-          shadow.innerHTML = `
-            <style>
-              :host { display: block; max-width: 1280px; margin: auto; }
-              .v { position: relative; width: 100%; aspect-ratio: ${o}; overflow: hidden; border-radius: 12px; background: #000; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
-              iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-            </style>
-            <div class="v">
-              <iframe src="${r}/embed/${a}?${s}" loading="lazy" allowfullscreen allow="autoplay"></iframe>
-            </div>
-          `;
-        }
-      });
-    }
-
     const timer = setInterval(() => {
       setTimePassed(prev => {
         if (prev >= DELAY_SECONDS) {
@@ -77,14 +47,15 @@ const SalesPage: React.FC<SalesPageProps> = ({ userData }) => {
             </h2>
         </div>
 
-        {/* VSL Section - Auto Play */}
+        {/* VSL Section - Auto Play - Iframe Atualizado */}
         <div className="w-full px-2 md:px-6 mb-4">
-           {React.createElement('lite-video-player', {
-             'video-id': "29aef3fa-31aa-4d8b-9a12-7f460271b0f9",
-             'aspect-ratio': "9:16",
-             'base-url': "https://app.litevideo.net",
-             'params': "aspectRatio=9%3A16&coverColor=%230f172a&progressSpeed=normal&progressBarHeight=8&showCover=true&coverStyle=gradient&playIconStyle=circle&playIconSize=huge&showTitle=true&showControls=false&showProgressBar=true&iconColor=%23ffffff&iconBackgroundColor=%23ff0000&iconBackgroundOpacity=100&progressBarColor=%23ff0000&controlsStyle=default&controlsPosition=bottom&controlsColor=%23ffffff&controlsBackground=gradient&hoverEffect=fade&autoPlay=true&loop=false&liveSimulatorEnabled=false&liveSimulatorViewersMin=10&liveSimulatorViewersMax=50&liveSimulatorGrowthRate=moderate&domainLockEnabled=false&domainLockDomains=&showComments=false"
-           })}
+           <iframe 
+             src="https://app.litevideo.net/embed/29aef3fa-31aa-4d8b-9a12-7f460271b0f9?aspectRatio=9%3A16&coverColor=%230f172a&progressSpeed=normal&progressBarHeight=8&showCover=true&coverStyle=gradient&playIconStyle=circle&playIconSize=huge&showTitle=true&showControls=false&showProgressBar=true&iconColor=%23ffffff&iconBackgroundColor=%23ff0000&iconBackgroundOpacity=100&progressBarColor=%23ff0000&controlsStyle=default&controlsPosition=bottom&controlsColor=%23ffffff&controlsBackground=gradient&hoverEffect=fade&autoPlay=true&loop=false&liveSimulatorEnabled=false&liveSimulatorViewersMin=10&liveSimulatorViewersMax=50&liveSimulatorGrowthRate=moderate&domainLockEnabled=false&domainLockDomains=&showComments=false" 
+             style={{ width: '100%', aspectRatio: '9/16', border: '0', borderRadius: '12px' }}
+             allowFullScreen 
+             loading="lazy"
+             allow="autoplay"
+           ></iframe>
         </div>
         
         <div className="px-4 py-2 text-center">
